@@ -1,0 +1,7 @@
+export {default as Login} from "./login.jsx"
+export {default as Menu}  from "./meanu.jsx"
+export {default as Bills} from "./biils.jsx"
+export {default as Payment} from "./payment.jsx"
+export {default as Report} from "./report.jsx"
+export {default as Stock} from "./stock.jsx"
+export {default as User} from "./useronly.jsx"

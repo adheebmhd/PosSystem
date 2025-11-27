@@ -1,0 +1,54 @@
+/* Hide receipt normally */
+#receiptArea {
+  display: none;
+}
+
+/* PRINTING RULES */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #receiptArea,
+  #receiptArea * {
+    visibility: visible;
+  }
+
+  #receiptArea {
+    display: block;
+    margin: 0;
+    padding: 12px;
+    width: 80mm; /* Standard POS receipt width */
+    font-size: 12px;
+    font-family: "Courier New", monospace;
+  }
+
+  .title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+  }
+
+  .line {
+    border-bottom: 1px dashed #000;
+    margin: 10px 0;
+  }
+
+  .row,
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 4px 0;
+  }
+
+  .total-row {
+    font-weight: bold;
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  @page {
+    size: 80mm auto; /* POS paper */
+    margin: 0;
+  }
+}
