@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 export default function StockPage() {
   const [stock, setStock] = useState([]);
   const [search, setSearch] = useState("");
+  const API = "https://your-backend.vercel.app";
 
   // Load Stock from Backend
   useEffect(() => {
-    fetch("http://localhost:5000/stock")
+    fetch(`${API}/stock`)
       .then((res) => res.json())
       .then((data) => setStock(data))
       .catch((err) => console.log(err));
@@ -22,7 +23,7 @@ export default function StockPage() {
       return alert("Invalid input");
     }
 
-    fetch("http://localhost:5000/stock", {
+    fetch(`${API}/stock`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, quantity, price }),
@@ -40,7 +41,7 @@ export default function StockPage() {
       return alert("Invalid input");
     }
 
-    fetch(`http://localhost:5000/stock/${id}`, {
+    fetch(`${API}/stock/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity, price }),
@@ -52,7 +53,7 @@ export default function StockPage() {
   const deleteStock = (id) => {
     if (!confirm("Are you sure to delete?")) return;
 
-    fetch(`http://localhost:5000/stock/${id}`, {
+    fetch(`${API}/stock/${id}`, {
       method: "DELETE",
     })
       .then(() => refreshData());
@@ -60,7 +61,7 @@ export default function StockPage() {
 
   // Refresh without reload
   const refreshData = () => {
-    fetch("http://localhost:5000/stock")
+    fetch(`${API}/stock`)
       .then((res) => res.json())
       .then((data) => setStock(data));
   };
