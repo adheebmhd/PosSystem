@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function StockPage() {
   const [stock, setStock] = useState([]);
   const [search, setSearch] = useState("");
-  const API = "https://your-backend.vercel.app";
+  const API = "https://your-backend.vercel.app/api";
 
   // Load Stock from Backend
   useEffect(() => {
