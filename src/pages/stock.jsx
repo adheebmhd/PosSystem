@@ -32,28 +32,20 @@ export default function StockPage() {
   };
 
   // Update Stock
-  const updateStock = (id) => {
-    const item = stock.find((i) => i.id === id);
-    const quantity = parseInt(prompt("Update quantity:", item.quantity));
-    const price = parseFloat(prompt("Update price:", item.price));
+ const updateStock = async (id) => {
+  const item = stock.find(i => i.id === id);
 
-    if (isNaN(quantity) || isNaN(price)) {
-      return alert("Invalid input");
-    }
+  const quantity = parseInt(prompt("Update quantity:", item.quantity));
+  const price = parseFloat(prompt("Update price:", item.price));
 
-    fetch(`${API}/stock/${id}`, {
-  method: "PUT",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ quantity, price }),
-})
-  .then(res => res.json())
-  .then(data => {
-    console.log("UPDATE RESPONSE:", data);
-    refreshData();   // ✅ always run
-  })
-  .catch(err => console.log(err));
-  };
+  await fetch(`${API}/stock/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ quantity, price }),
+  });
 
+  await refreshData();   // 🔥 guaranteed run
+};
   // Delete Stock
   const deleteStock = (id) => {
     if (!confirm("Are you sure to delete?")) return;
