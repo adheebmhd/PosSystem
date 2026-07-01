@@ -15,7 +15,10 @@ const login = () => {
     e.preventDefault();
 
     if (username === "adheeb" && password === "0772675123") {
+      const navigate = useNavigate();
       navigate("/meanu");
+
+      
       
     }
     else if (username === "admin" && password === "1234") {
