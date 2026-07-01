@@ -149,9 +149,10 @@ function BillingPage() {
     headers: { "Content-Type": "application/json" },
     
     body: JSON.stringify({
-      customer: customerName,
-      cart: cart,
-      total: total,
+  customer: customerName,
+  cart: Array.isArray(cart) ? cart : [],
+  total: total,
+
       
     }),
   })
@@ -186,13 +187,20 @@ const deleteDraft = (id) => {
   };
 
  const loadDraft = (draft) => {
-    const loadedCart = JSON.parse(draft.cart); // Always valid JSON now
+  let loadedCart = [];
 
-    setCustomerName(draft.customer_name);
-    setCart(loadedCart);
+  try {
+    loadedCart = JSON.parse(draft.cart || "[]");
+  } catch (err) {
+    console.error("Cart parse error:", err);
+    loadedCart = [];
+  }
 
-    alert("Draft Loaded!");
-  };
+  setCustomerName(draft.customer_name);
+  setCart(loadedCart);
+
+  alert("Draft Loaded!");
+};
   const filteredStock = stock.filter((item) =>
   (item.name || "").toLowerCase().includes(search.toLowerCase())
 );
