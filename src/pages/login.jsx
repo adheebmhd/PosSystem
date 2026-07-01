@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const login = () => {
+const Login = () => {
   const navigate = useNavigate();
   const usernameRef = useRef(null); // 👈 Reference for input focus
 
@@ -15,7 +15,6 @@ const login = () => {
     e.preventDefault();
 
     if (username === "adheeb" && password === "0772675123") {
-      const navigate = useNavigate();
       navigate("/meanu");
 
       
@@ -81,5 +80,5 @@ const login = () => {
   )
 }
 
-export default login
+export default Login
 
