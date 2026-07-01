@@ -46,7 +46,19 @@ export default function StockPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ quantity, price }),
     })
-      .then(() => refreshData());
+       .then(res => {
+      if (!res.ok) {
+        throw new Error("Update failed");
+      }
+      return res.json();
+    })
+    .then(() => {
+      refreshData();   // ✅ guaranteed run
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Update failed");
+    });
   };
 
   // Delete Stock
