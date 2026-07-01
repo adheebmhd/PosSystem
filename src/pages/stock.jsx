@@ -42,23 +42,16 @@ export default function StockPage() {
     }
 
     fetch(`${API}/stock/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ quantity, price }),
-    })
-       .then(res => {
-      if (!res.ok) {
-        throw new Error("Update failed");
-      }
-      return res.json();
-    })
-    .then(() => {
-      refreshData();   // ✅ guaranteed run
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Update failed");
-    });
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ quantity, price }),
+})
+  .then(res => res.json())
+  .then(data => {
+    console.log("UPDATE RESPONSE:", data);
+    refreshData();   // ✅ always run
+  })
+  .catch(err => console.log(err));
   };
 
   // Delete Stock
