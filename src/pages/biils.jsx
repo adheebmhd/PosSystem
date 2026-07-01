@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./receipt.css";
+import API from "../api";
 
 
 function BillingPage() {
@@ -14,7 +15,7 @@ function BillingPage() {
 
   // Fetch stock from backend
   useEffect(() => {
-    fetch("http://localhost:5000/stock")
+    fetch(`${API}/stock`)
       .then((res) => res.json())
       .then((data) => setStock(data))
       .catch((err) => console.error("Error loading stock:", err));
@@ -83,7 +84,7 @@ function BillingPage() {
 
 
   //save in bill
-   fetch("http://localhost:5000/create-bill", {
+   fetch(`${API}/create-bill`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -102,7 +103,7 @@ function BillingPage() {
       setBillNumber(data.billNumber);
       })
     // 1️⃣ Update stock in backend
-    fetch("http://localhost:5000/update-stock", {
+    fetch(`${API}/update-stock`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ cart }),
@@ -121,7 +122,7 @@ function BillingPage() {
   ;
       setCart([]);
 
-      fetch("http://localhost:5000/stock")
+      fetch(`${API}/stock`)
         .then((res) => res.json())
         .then((data) => setStock(data));
     } else {
@@ -143,7 +144,7 @@ function BillingPage() {
     return;
   }
 
-  fetch("http://localhost:5000/save-draft", {
+  fetch(`${API}/save-draft`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     
@@ -165,7 +166,7 @@ function BillingPage() {
 };
 
 useEffect(() => {
-    fetch("http://localhost:5000/drafts")
+    fetch(`${API}/drafts`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setDrafts(data.drafts);
@@ -173,7 +174,7 @@ useEffect(() => {
   }, []);
 
 const deleteDraft = (id) => {
-    fetch(`http://localhost:5000/drafts/${id}`, {
+    fetch(`${API}/drafts/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

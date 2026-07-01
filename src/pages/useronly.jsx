@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API from "../api";
 
 export default function useronly() {
     const [stock, setStock] = useState([]);
@@ -6,7 +7,7 @@ export default function useronly() {
 
      // Load Stock from Backend
       useEffect(() => {
-        fetch("http://localhost:5000/stock")
+        fetch(`${API}/stock`)
           .then((res) => res.json())
           .then((data) => setStock(data))
           .catch((err) => console.log(err));

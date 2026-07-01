@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import API from "../api";
 
 export default function report() {
    const [bills, setBills] = useState([]);
    const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/bills")
+    fetch(`${API}/bills`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -14,7 +15,7 @@ export default function report() {
       });
   }, []);
   const refreshData = () => {
-  fetch("http://localhost:5000/bills")
+  fetch(`${API}/bills`)
     .then(res => res.json())
     .then(data => {
       if (data.success) {
@@ -37,7 +38,7 @@ export default function report() {
     return alert("Invalid input");
   }
 
-  fetch(`http://localhost:5000/update-payment/${id}`, {
+  fetch(`${API}/update-payment/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({payment,total }),
@@ -47,7 +48,7 @@ export default function report() {
   const deletebill = (id) => {
     if (!confirm("Are you sure to delete?")) return;
 
-    fetch(`http://localhost:5000/update-payment/${id}`, {
+    fetch(`${API}/update-payment/${id}`, {
       method: "DELETE",
     })
       .then(() => refreshData());}

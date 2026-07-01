@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import API from "../api";
 
 export default function StockPage() {
   const [stock, setStock] = useState([]);
   const [search, setSearch] = useState("");
-  const API = "https://pos-system-git-main-adheebs-projects-7c2b1661.vercel.app";
-
+  
   // Load Stock from Backend
   useEffect(() => {
     fetch(`${API}/stock`)

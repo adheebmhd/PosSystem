@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import API from "../api";
 
 
 export default function payment() {
@@ -19,7 +19,7 @@ const [search, setSearch] = useState("");
 
 
   useEffect(() => {
-    fetch("http://localhost:5000/bills")
+    fetch(`${API}/bills`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -28,7 +28,7 @@ const [search, setSearch] = useState("");
       });
   }, []);
   const refreshData = () => {
-  fetch("http://localhost:5000/bills")
+  fetch(`${API}/bills`)
     .then(res => res.json())
     .then(data => {
       if (data.success) {
@@ -42,7 +42,7 @@ const total = cart.reduce(
     0
   );
 useEffect(() => {
-    fetch("http://localhost:5000/bills")
+    fetch(`${API}/bills`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setDrafts(data.drafts);
@@ -80,7 +80,7 @@ useEffect(() => {
     return alert("Invalid input");
   }
 
-  fetch(`http://localhost:5000/update-payment/${id}`, {
+  fetch(`${API}/update-payment/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({payment,total }),
@@ -90,7 +90,7 @@ useEffect(() => {
   const deletebill = (id) => {
     if (!confirm("Are you sure to delete?")) return;
 
-    fetch(`http://localhost:5000/update-payment/${id}`, {
+    fetch(`${API}/update-payment/${id}`, {
       method: "DELETE",
     })
       .then(() => refreshData());}
@@ -129,7 +129,7 @@ useEffect(() => {
     return alert("Invalid payment value");
   }
 
-  fetch(`http://localhost:5000/update-payment/${selectedId}`, {
+  fetch(`${API}/update-payment/${selectedId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ payment, total, cart: cart  }),
