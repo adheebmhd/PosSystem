@@ -54,18 +54,19 @@ function BillingPage() {
   );
 
   // ✅ Print & Update Database
-  const handlePrint = () => {
-    const printContents = document.getElementById("receiptArea").innerHTML;
-  const originalContents = document.body.innerHTML;
-    if (cart.length === 0) return alert("Cart is empty!");
-    if (!customerName) {
+  const handlePrint = async () => {
+  if (cart.length === 0) {
+    alert("Cart is empty!");
+    return;
+  }
+
+  if (!customerName.trim()) {
     alert("Enter customer name!");
     return;
   }
-  
-  
-  // 🔥 1) STOCK VALIDATION — STOP IF QUANTITY > STOCK
-  for (let item of cart) {
+
+  // ✅ Stock Validation
+  for (const item of cart) {
     const stockItem = stock.find((s) => s.id === item.id);
 
     if (!stockItem) {
@@ -75,62 +76,72 @@ function BillingPage() {
 
     if (item.quantity > stockItem.quantity) {
       alert(
-        `Out of Stock!\n\n${item.name} available: ${stockItem.quantity},\nYou entered: ${item.quantity}`
+        `Out of Stock!\n\n${item.name} available: ${stockItem.quantity}\nYou entered: ${item.quantity}`
       );
-      return; // ❌ DO NOT CONTINUE
+      return;
     }
   }
-    
 
+  try {
+    // ✅ Save Bill
+    const billRes = await fetch(`${API}/create-bill`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customerName,
+        cart,
+        total,
+      }),
+    });
 
-  //save in bill
-   fetch(`${API}/create-bill`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      customerName,
-      cart: cart,
-      total,
-    }),
-  }) 
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.success) {
-        alert("Bill Saved!");
-        // 🔥 show generated bill number
-        
-      }
-      setBillNumber(data.billNumber);
-      })
-    // 1️⃣ Update stock in backend
-    fetch(`${API}/update-stock`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ cart }),
-})
-  .then((res) => res.json())
-  .then((data) => {
-    console.log("RESPONSE:", data); // <-- DEBUG LOG
-     
+    const billData = await billRes.json();
 
-    if (data.success) {
-      alert("Stock updated successfully ✅");
-      window.print();
-      setCustomerName("");
-      setCart([]);
-      
-  ;
-      setCart([]);
-
-      fetch(`${API}/stock`)
-        .then((res) => res.json())
-        .then((data) => setStock(data));
-    } else {
-      alert("Failed to update stock ❌");
+    if (!billData.success) {
+      alert("Failed to save bill!");
+      return;
     }
-  })
-  .catch((err) => console.error("Fetch Error:", err));
+
+    alert("Bill Saved!");
+    setBillNumber(billData.billNumber);
+
+    // ✅ Update Stock
+    const stockRes = await fetch(`${API}/update-stock`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ cart }),
+    });
+
+    const stockData = await stockRes.json();
+
+    if (!stockData.success) {
+      alert("Failed to update stock!");
+      return;
+    }
+
+    alert("Stock updated successfully ✅");
+
+    // ✅ Refresh Stock
+    const refreshRes = await fetch(`${API}/stock`);
+    const updatedStock = await refreshRes.json();
+
+    setStock(updatedStock);
+
+    // ✅ Print
+    window.print();
+
+    // ✅ Clear form
+    setCustomerName("");
+    setCart([]);
+
+  } catch (err) {
+    console.error("ERROR:", err);
+    alert("Something went wrong!");
   }
+};
   
   //save darft
   const saveDraft = () => {
