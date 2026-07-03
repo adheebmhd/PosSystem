@@ -27,14 +27,13 @@ const [search, setSearch] = useState("");
         }
       });
   }, []);
-  const refreshData = () => {
-  fetch(`${API}/bills`)
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        setBills(data.bills);
-      }
-    });
+  const refreshData = async () => {
+  const res = await fetch(`${API}/bills`);
+  const data = await res.json();
+
+  if (data.success) {
+    setBills(data.bills);
+  }
 };
 
 const total = cart.reduce(
@@ -110,38 +109,65 @@ useEffect(() => {
     alert("Draft Loaded!");
   };
 
-  const handlePrint = () => {
-  if (!selectedId) {
-    return alert("No bill selected!");
-  }
-  
-  const item = bills.find((i) => i.id === selectedId);
-  setBillNumber(selectedId);
-  const payment = Number(payedamount);
-  const total = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  
-  const pan = total - payedamount
-  setPadingAmount(pan)
-  if (isNaN(payment)) {
-    return alert("Invalid payment value");
-  }
+  const handlePrint = async () => {
+  try {
+    if (!selectedId) {
+      alert("No bill selected!");
+      return false;
+    }
 
-  fetch(`${API}/update-payment/${selectedId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ payment, total, cart: cart  }),
-  }).then(res => res.json())
-  .then(data => {
-    setBillNumber(selectedId); 
-    refreshData();
-  }); 
-  window.print();
-      setCustomerName("");
-      setCart([]);
-      setPayedamount("");
+    const payment = Number(payedamount);
+
+    if (isNaN(payment)) {
+      alert("Invalid payment value");
+      return false;
+    }
+
+    const total = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    // Update Payment
+    const res = await fetch(`${API}/update-payment/${selectedId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        payment,
+        total,
+        cart,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+      alert("Failed to update payment!");
+      return false;
+    }
+
+    // Refresh Bills
+    await refreshData();
+
+    // Set Bill Number
+    setBillNumber(selectedId);
+
+    // Print
+    window.print();
+
+    // Clear Form
+    setCustomerName("");
+    setCart([]);
+    setPayedamount("");
+
+    return true;
+  } catch (err) {
+    console.error("PRINT ERROR:", err);
+    alert("Something went wrong!");
+    return false;
+  }
 };
 
 const filteredStock = bills.filter((b) =>
