@@ -19,7 +19,7 @@ const [search, setSearch] = useState("");
 
 
   useEffect(() => {
-    fetch(`${API}/bills`)
+    fetch(`${API}/create-bill`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -28,7 +28,7 @@ const [search, setSearch] = useState("");
       });
   }, []);
   const refreshData = async () => {
-  const res = await fetch(`${API}/bills`);
+  const res = await fetch(`${API}/create-bill`);
   const data = await res.json();
 
   if (data.success) {
