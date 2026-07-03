@@ -333,7 +333,10 @@ const deleteDraft = (id) => {
             <div>
           <button
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-            onClick={handlePrint}
+            onClick={async () => {
+              await handlePrint();
+              await deleteDraft(d.id);
+            }}
           >
             🖨️ Print Receipt
           </button>
@@ -360,9 +363,7 @@ const deleteDraft = (id) => {
             </button>
 
             <button
-              onClick={async () => {
-                await handlePrint();
-              }}
+              onClick={() => deleteDraft(d.id)}
               className="bg-red-600 text-white px-2 py-1 rounded"
             >
               Delete
