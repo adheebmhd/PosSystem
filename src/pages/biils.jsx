@@ -185,17 +185,36 @@ useEffect(() => {
       });
   }, []);
 
-const deleteDraft = (id) => {
-    fetch(`${API}/drafts/${id}`, {
+const deleteDraft = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this draft?"
+  );
+
+  if (!confirmDelete) {
+    return; // User clicked Cancel
+  }
+
+  try {
+    const res = await fetch(`${API}/drafts/${id}`, {
       method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          setDrafts(drafts.filter((d) => d.id !== id));
-        }
-      });
-  };
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      setDrafts((prevDrafts) =>
+        prevDrafts.filter((d) => d.id !== id)
+      );
+
+      alert("✅ Draft deleted successfully!");
+    } else {
+      alert("❌ Failed to delete draft.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("❌ Something went wrong!");
+  }
+};
 
  const loadDraft = (draft) => {
   let loadedCart = [];
