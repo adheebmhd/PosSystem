@@ -41,7 +41,7 @@ const total = cart.reduce(
     0
   );
 useEffect(() => {
-    fetch(`${API}/bills`)
+    fetch(`${API}/create-bill`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setDrafts(data.drafts);
