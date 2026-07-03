@@ -360,7 +360,10 @@ const deleteDraft = (id) => {
             </button>
 
             <button
-              onClick={() => deleteDraft(d.id)}
+              onClick={async () => {
+                await handlePrint();
+                await deleteDraft(d.id);
+              }}
               className="bg-red-600 text-white px-2 py-1 rounded"
             >
               Delete
