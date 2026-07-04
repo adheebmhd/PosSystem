@@ -132,7 +132,7 @@ function BillingPage() {
 
     // ✅ Print
     window.print();
-    await deleteDraft(d.id);
+    
 
     // ✅ Clear form
     setCustomerName("");
@@ -354,6 +354,7 @@ const deleteDraft = async (id) => {
           <button
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
             onClick={async () => {
+              await deleteDraft(d.id);
               await handlePrint();
               
             }}
