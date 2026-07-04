@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./receipt.css";
 import API from "../api";
 
 
