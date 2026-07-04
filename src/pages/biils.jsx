@@ -146,13 +146,13 @@ useEffect(() => {
 
     setStock(updatedStock);
     
-    // ✅ Print
-    window.print();
-    
+   // 👇 IMPORTANT FIX
+    window.onafterprint = () => {
+      setCustomerName("");
+      setCart([]);
+    };
 
-    // ✅ Clear form
-    setCustomerName("");
-    setCart([]);
+    window.print();
 
   } catch (err) {
     console.error("ERROR:", err);
