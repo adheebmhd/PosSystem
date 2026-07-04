@@ -132,7 +132,7 @@ function BillingPage() {
 
     // ✅ Print
     window.print();
-    await deleteDraft(draftId);
+    await deleteDraft(d.id);
 
     // ✅ Clear form
     setCustomerName("");
