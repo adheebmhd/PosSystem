@@ -370,7 +370,10 @@ const deleteDraft = async (id) => {
           
         </div>
         <button
-            onClick={saveDraft}
+            onClick={async () =>{
+              await saveDraft();
+            }}
+
             className="bg-blue-500 text-white px-3 py-1 rounded"
                 >
                   Save Draft
