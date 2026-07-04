@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./receipt.css";
+import "./receipt1.css";
 import API from "../api";
 
 
