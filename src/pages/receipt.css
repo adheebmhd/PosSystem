@@ -34,13 +34,13 @@
     margin: 10px 0;
   }
 
-  .row,
-  .total-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 4px 0;
-  }
-
+ .row,
+.total-row {
+  display: grid;
+  grid-template-columns: 45% 20% 35%;
+  column-gap: 2mm;
+  align-items: start;
+}
   .total-row {
     font-weight: bold;
     margin-top: 8px;
