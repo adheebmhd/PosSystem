@@ -19,7 +19,7 @@ const [search, setSearch] = useState("");
 
 
   useEffect(() => {
-    fetch(`${API}/save-bill`)
+    fetch(`${API}/bills`)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -28,7 +28,7 @@ const [search, setSearch] = useState("");
       });
   }, []);
   const refreshData = async () => {
-  const res = await fetch(`${API}/save-bill`);
+  const res = await fetch(`${API}/bills`);
   const data = await res.json();
 
   if (data.success) {
@@ -41,7 +41,7 @@ const total = cart.reduce(
     0
   );
 useEffect(() => {
-    fetch(`${API}/save-bill`)
+    fetch(`${API}/bills`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setDrafts(data.drafts);
