@@ -129,7 +129,7 @@ function BillingPage() {
     const updatedStock = await refreshRes.json();
 
     setStock(updatedStock);
-
+    
     // ✅ Print
     window.print();
     
@@ -353,10 +353,12 @@ const deleteDraft = async (id) => {
             <div>
           <button
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-            onClick={async () => {
-              deleteDraft(d.id);
-              await handlePrint();
-              
+             onClick={async () => {
+              const success = await handlePrint();
+
+              if (success) {
+                await deleteDraft(d.id);
+              }
             }}
           >
             🖨️ Print Receipt
