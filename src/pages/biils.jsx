@@ -145,7 +145,7 @@ function BillingPage() {
 };
   
   //save darft
-  const saveDraft = () => {
+  const saveDraft = async () => {
   if (cart.length === 0) {
     alert("Cart is empty");
     return;
@@ -156,26 +156,32 @@ function BillingPage() {
     return;
   }
 
-  fetch(`${API}/save-draft`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    
-    body: JSON.stringify({
-  customer: customerName,
-  cart: Array.isArray(cart) ? cart : [],
-  total: total,
-
-      
-    }),
-  })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        alert("Draft saved!");
-        setCart([]);  // clear cart
-        setCustomerName("");
-      }
+  try {
+    const res = await fetch(`${API}/save-draft`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customer: customerName,
+        cart: Array.isArray(cart) ? cart : [],
+        total: total,
+      }),
     });
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Draft saved!");
+      setCart([]);
+      setCustomerName("");
+    } else {
+      alert(data.message || "Failed to save draft");
+    }
+  } catch (error) {
+    console.error("Save Draft Error:", error);
+    alert("Server error");
+  }
 };
 
 useEffect(() => {
@@ -376,11 +382,9 @@ const deleteDraft = async (id) => {
             <p><b>Total:</b> Rs. {d.total}</p>
 
             <button
-              onClick={() => {
-                loadDraft(d);
-                deleteDraft(d.id);
-              
-
+              onClick={async () => {
+                await loadDraft(d);
+                await deleteDraft(d.id);
               }
 
               }
