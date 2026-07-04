@@ -175,6 +175,8 @@ function BillingPage() {
       alert("Draft saved!");
       setCart([]);
       setCustomerName("");
+      await getDrafts(); 
+      
     } else {
       alert(data.message || "Failed to save draft");
     }
