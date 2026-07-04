@@ -3,34 +3,23 @@
 }
 
 @media print {
-  body {
-    margin: 0;
-    padding: 0;
+  body * {
+    visibility: hidden;
   }
 
-  body * {
-    display: none;
+  #receiptArea,
+  #receiptArea * {
+    visibility: visible;
   }
 
   #receiptArea {
-    display: block;
     position: absolute;
     left: 0;
     top: 0;
     width: 80mm;
     padding: 5mm;
-    font-size: 12px;
     font-family: "Courier New", monospace;
-  }
-
-  #receiptArea * {
-    display: block;
-  }
-
-  .row,
-  .total-row {
-    display: flex;
-    justify-content: space-between;
+    font-size: 12px;
   }
 
   @page {
