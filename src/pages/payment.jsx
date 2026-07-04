@@ -151,11 +151,15 @@ const total = cart.reduce(
 
     // Print
     window.print();
+    window.print();
 
+setTimeout(() => {
+  setCustomerName("");
+  setCart([]);
+  setPayedamount("");
+}, 3000);
     // Clear Form
-    setCustomerName("");
-    setCart([]);
-    setPayedamount("");
+
 
     return true;
   } catch (err) {
