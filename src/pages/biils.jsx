@@ -353,12 +353,9 @@ const deleteDraft = async (id) => {
             <div>
           <button
             className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-             onClick={async () => {
-              const success = await handlePrint();
-
-              if (success) {
-                await deleteDraft(d.id);
-              }
+            onClick={async () => {
+              await handlePrint();
+              
             }}
           >
             🖨️ Print Receipt
@@ -379,7 +376,14 @@ const deleteDraft = async (id) => {
             <p><b>Total:</b> Rs. {d.total}</p>
 
             <button
-              onClick={() => loadDraft(d)}
+              onClick={() => {
+                loadDraft(d);
+                deleteDraft(d.id);
+              
+
+              }
+
+              }
               className="bg-green-500 text-white px-2 py-1 rounded mr-2"
             >
               Load
