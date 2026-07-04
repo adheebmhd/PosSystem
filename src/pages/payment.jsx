@@ -16,6 +16,7 @@ const [selectedId, setSelectedId] = useState(null);
 const [billNumber, setBillNumber] = useState("");
 const [pandingAmount, setPadingAmount] = useState("");
 const [search, setSearch] = useState("");
+const printRef = useRef();
 
 
 
@@ -224,7 +225,7 @@ const filteredStock = bills.filter((b) =>
       </table>
     </div>
       </div>
-      <div>
+      <div ref={printRef}>
         <h2 className="text-xl font-bold mb-4">Check Payment</h2>
         
 
