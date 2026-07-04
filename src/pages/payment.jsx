@@ -314,21 +314,22 @@ const filteredStock = bills.filter((b) =>
           </div>
           
           
-          <div
-  id="receiptArea"
-  className="receipt hidden"
->
+          
+  <div id="receiptArea" className="receipt">
   <h2 className="text-2xl font-bold mb-4 text-center">RECEIPT</h2>
+
   <p><strong>Customer:</strong> {customerName || "N/A"}</p>
   <p>Bill No: {String(selectedId).padStart(4, "0")}</p>
   <p>Date: {new Date().toLocaleString()}</p>
 
   <hr className="border-dashed my-2" />
-  
-  <div  className="flex justify-between my-1"><span>Qty Product</span>
-  <span>Unit Price</span>
-  <span>Total</span>
+
+  <div className="flex justify-between my-1">
+    <span>Qty Product</span>
+    <span>Unit Price</span>
+    <span>Total</span>
   </div>
+
   {cart.map((item) => (
     <div key={item.id} className="row">
       <span>{item.quantity}x {item.name}</span>
@@ -343,16 +344,19 @@ const filteredStock = bills.filter((b) =>
     <span>TOTAL AMOUNT</span>
     <span>Rs. {total.toFixed(2)}</span>
   </div>
+
   <div className="total-row">
-    <span>Payed Amount</span>
+    <span>Paid Amount</span>
     <span>Rs. -{payedamount}</span>
   </div>
+
   <hr className="border-dashed my-2" />
+
   <div className="total-row">
-    <span>Cridetit Amount</span>
-    <span>Rs. {total.toFixed(2) - payedamount}</span>
+    <span>Credit Amount</span>
+    <span>Rs. {total - payedamount}</span>
   </div>
-  </div>
+</div>
       
         </div>
         
