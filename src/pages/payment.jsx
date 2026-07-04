@@ -316,7 +316,9 @@ const filteredStock = bills.filter((b) =>
           
           
           
-  <div id="receiptArea" className="receipt hidden">
+  <div 
+  id="receiptArea" 
+  className="receipt hidden">
   <h2 className="text-2xl font-bold mb-4 text-center">RECEIPT</h2>
 
   <p><strong>Customer:</strong> {customerName || "N/A"}</p>
@@ -359,11 +361,10 @@ const filteredStock = bills.filter((b) =>
   </div>
 </div>
       
-        </div>
+</div>
         
        
-      
-    </div>
+</div>
   )
 }
 
