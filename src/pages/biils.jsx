@@ -35,6 +35,22 @@ function BillingPage() {
       setCart([...cart, { ...item, quantity: 1 }]);
     }
   };
+  const getDrafts = async () => {
+  try {
+    const res = await fetch(`${API}/drafts`);
+    const data = await res.json();
+
+    if (data.success) {
+      setDrafts(data.drafts);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+useEffect(() => {
+  getDrafts();
+}, []);
 
   const updateCartItem = (id, field, value) => {
     setCart(
@@ -176,7 +192,7 @@ function BillingPage() {
       setCart([]);
       setCustomerName("");
       await getDrafts(); 
-      
+
     } else {
       alert(data.message || "Failed to save draft");
     }
