@@ -40,13 +40,6 @@ const total = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-useEffect(() => {
-    fetch(`${API}/bills`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) setDrafts(data.drafts);
-      });
-  }, []);
 
   const updateCartItem = (id, field, value) => {
     setCart(
