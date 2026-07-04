@@ -5,6 +5,19 @@
 
 /* PRINTING RULES */
 @media print {
+
+  @page {
+    size: 80mm auto;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 80mm;
+  }
+
   body * {
     visibility: hidden;
   }
@@ -15,10 +28,16 @@
   }
 
   #receiptArea {
-    display: block;
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 80mm;
     margin: 0;
     padding: 12px;
-    width: 80mm; /* Standard POS receipt width */
+    box-sizing: border-box;
+
     font-size: 12px;
     font-family: "Courier New", monospace;
   }
@@ -47,8 +66,5 @@
     font-size: 16px;
   }
 
-  @page {
-    size: 80mm auto; /* POS paper */
-    margin: 0;
-  }
+
 }
