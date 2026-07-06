@@ -11,6 +11,7 @@ function BillingPage() {
   const [billNumber, setBillNumber] = useState("");
   const [drafts, setDrafts] = useState([]);
   const [search, setSearch] = useState("");
+  const [printData, setPrintData] = useState(null);
 
 
   // Fetch stock from backend
