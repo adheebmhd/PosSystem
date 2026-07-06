@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Login, Menu, Bills, Payment, Report, Stock, User } from "./pages";
 import { Header } from "./components/shared";
+import ProtectedRoute from "./components/shared";
+
 
 function AppWrapper() {
   return (
@@ -21,14 +23,62 @@ function App() {
       {!hideHeader && <Header />}
 
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/meanu" element={<Menu />} />
-        <Route path="/bills" element={<Bills />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/report" element={<Report />} />
-        <Route path="/stock" element={<Stock />} />
-        <Route path="/user" element={<User />} />
-      </Routes>
+  <Route path="/" element={<Login />} />
+
+  <Route
+    path="/meanu"
+    element={
+      <ProtectedRoute>
+        <Menu />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/bills"
+    element={
+      <ProtectedRoute>
+        <Bills />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/payment"
+    element={
+      <ProtectedRoute>
+        <Payment />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/report"
+    element={
+      <ProtectedRoute>
+        <Report />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/stock"
+    element={
+      <ProtectedRoute>
+        <Stock />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route
+    path="/user"
+    element={
+      <ProtectedRoute>
+        <User />
+      </ProtectedRoute>
+    }
+  />
+</Routes>
     </>
   );
 }

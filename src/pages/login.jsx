@@ -15,15 +15,15 @@ const Login = () => {
     e.preventDefault();
 
     if (username === "adheeb" && password === "0772675123") {
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/meanu");
-
-      
+     }
       
     }
     else if (username === "admin" && password === "1234") {
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/user");
-      
-    } 
+    }
     else {
       setError("❌ Username or Password Incorrect");
       setUsername("");
