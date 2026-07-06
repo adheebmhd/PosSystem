@@ -11,7 +11,6 @@ function BillingPage() {
   const [billNumber, setBillNumber] = useState("");
   const [drafts, setDrafts] = useState([]);
   const [search, setSearch] = useState("");
-  const [printData, setPrintData] = useState(null);
 
 
   // Fetch stock from backend
@@ -147,31 +146,15 @@ useEffect(() => {
 
     setStock(updatedStock);
     
-    const snapshot = {
-    customerName,
-    cart,
-    total,
-    billNumber,
-  };
-
-  setPrintData(snapshot);
-
-  // wait for DOM update
-  setTimeout(() => {
+    // ✅ Print
     window.print();
-  }, 300);
-
-  window.onafterprint = () => {
-    setPrintData(null);
-    setCustomerName("");
-    setCart([]);
-  };
-};
     
 
-    
 
-  
+setTimeout(() => {
+  setCustomerName("");
+  setCart([]);
+}, 3000);
 
   } catch (err) {
     console.error("ERROR:", err);
