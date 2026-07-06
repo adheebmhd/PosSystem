@@ -19,7 +19,7 @@ const Login = () => {
       navigate("/meanu");
      }
       
-    }
+     
     else if (username === "admin" && password === "1234") {
       localStorage.setItem("isLoggedIn", "true");
       navigate("/user");
