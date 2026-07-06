@@ -146,16 +146,31 @@ useEffect(() => {
 
     setStock(updatedStock);
     
-    // ✅ Print
-    window.print();
-    
+    const snapshot = {
+    customerName,
+    cart,
+    total,
+    billNumber,
+  };
 
-    
+  setPrintData(snapshot);
 
+  // wait for DOM update
   setTimeout(() => {
-  setCustomerName("");
-  setCart([]);
-}, 3000);
+    window.print();
+  }, 300);
+
+  window.onafterprint = () => {
+    setPrintData(null);
+    setCustomerName("");
+    setCart([]);
+  };
+};
+    
+
+    
+
+  
 
   } catch (err) {
     console.error("ERROR:", err);
