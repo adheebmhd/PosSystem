@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Login, Menu, Bills, Payment, Report, Stock, User } from "./pages";
-import { Header } from "./components/shared";
-import ProtectedRoute from "./components/shared";
+import { Header, ProtectedRoute } from "./components/shared";
 
 
 function AppWrapper() {
