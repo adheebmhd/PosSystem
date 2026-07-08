@@ -429,7 +429,7 @@ const deleteDraft = async (id) => {
   id="receiptArea"
   className="receipt hidden"
 >
-  <h2 className="text-2xl font-bold mb-4 text-center">Oil Mart</h2>
+  <h2 className="text-2xl font-bold mb-4 text-center">Recipt</h2>
   <p><strong>Customer:</strong> {customerName || "N/A"}</p>
   <p>Bill No: {String(billNumber).padStart(4, "0")}</p>
   <p>Date: {new Date().toLocaleString()}</p>

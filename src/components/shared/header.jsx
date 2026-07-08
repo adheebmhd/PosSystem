@@ -17,7 +17,7 @@ const Header = () => {
   return (
     <div className="w-full p-6 bg-white border-b border-gray-300">
       <h1 className="text-2xl font-semibold flex justify-center">POS SYSTEM</h1>
-      <p className="text-gray-500 text-sm mb-4 flex justify-center"></p>
+      <p className="text-gray-500 text-sm mb-4 flex justify-center">Esay to Billing</p>
 
       <div className="flex flex-wrap gap-3">
         {categories.map((cat) => (
