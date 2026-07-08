@@ -16,8 +16,8 @@ const Header = () => {
 
   return (
     <div className="w-full p-6 bg-white border-b border-gray-300">
-      <h1 className="text-2xl font-semibold flex justify-center">SF MARKETTING</h1>
-      <p className="text-gray-500 text-sm mb-4 flex justify-center">Best OIl Best Choice</p>
+      <h1 className="text-2xl font-semibold flex justify-center">POS SYSTEM</h1>
+      <p className="text-gray-500 text-sm mb-4 flex justify-center"></p>
 
       <div className="flex flex-wrap gap-3">
         {categories.map((cat) => (
