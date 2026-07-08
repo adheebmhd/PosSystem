@@ -151,12 +151,13 @@ const total = cart.reduce(
 
     // Print
     window.print();
-    window.print();
+    
 
 setTimeout(() => {
   setCustomerName("");
   setCart([]);
   setPayedamount("");
+  billNumber("");
 }, 3000);
     // Clear Form
 
