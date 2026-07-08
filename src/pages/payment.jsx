@@ -157,7 +157,7 @@ setTimeout(() => {
   setCustomerName("");
   setCart([]);
   setPayedamount("");
-  selectedId("");
+  
 }, 3000);
     // Clear Form
 
