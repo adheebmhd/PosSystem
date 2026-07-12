@@ -22,7 +22,7 @@ const Login = () => {
      
     else if (username === "admin" && password === "1234") {
       localStorage.setItem("isLoggedIn", "true");
-      navigate("/bills");
+      navigate("/user");
     }
     else {
       setError("❌ Username or Password Incorrect");
