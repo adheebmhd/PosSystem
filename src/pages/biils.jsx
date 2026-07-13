@@ -111,24 +111,11 @@ useEffect(() => {
 
     // Print only after everything succeeds
     window.print();
-    if (window.matchMedia) {
-    const mediaQueryList = window.matchMedia('print');
-    const handler = (mql) => {
-      if (!mql.matches) {
-        // print dialog closed
-        setCustomerName("");
-        setCart([]);
-        mediaQueryList.removeListener(handler);
-      }
-    };
-    mediaQueryList.addListener(handler);
-  } else {
-    // fallback for browsers that don't support matchMedia print
+    alert("Print completed? Click OK to clear the bill.");
     window.onafterprint = () => {
       setCustomerName("");
       setCart([]);
     };
-  }
 
   } catch (err) {
     console.error("ERROR:", err);
