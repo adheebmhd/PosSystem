@@ -151,7 +151,7 @@ useEffect(() => {
     setTimeout(() => {
   setCustomerName("");
   setCart([]);
-}, 10000);
+}, 7000);
   
 
 

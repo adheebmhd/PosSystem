@@ -158,7 +158,7 @@ setTimeout(() => {
   setCart([]);
   setPayedamount("");
   
-}, 3000);
+}, 7000);
     // Clear Form
 
 
