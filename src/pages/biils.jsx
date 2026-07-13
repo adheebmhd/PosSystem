@@ -112,10 +112,9 @@ useEffect(() => {
     // Print only after everything succeeds
     window.print();
     alert("Print completed? Click OK to clear the bill.");
-    window.onafterprint = () => {
-      setCustomerName("");
-      setCart([]);
-    };
+    setCustomerName("");
+    setCart([]);
+
 
   } catch (err) {
     console.error("ERROR:", err);
