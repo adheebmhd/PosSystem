@@ -71,92 +71,54 @@ useEffect(() => {
 
   // ✅ Print & Update Database
   const handlePrint = async () => {
-  if (cart.length === 0) {
-    alert("Cart is empty!");
-    return;
-  }
+  if (cart.length === 0) return alert("Cart is empty!");
+  if (!customerName.trim()) return alert("Enter customer name!");
 
-  if (!customerName.trim()) {
-    alert("Enter customer name!");
-    return;
-  }
-
-  // ✅ Stock Validation
   for (const item of cart) {
     const stockItem = stock.find((s) => s.id === item.id);
-
-    if (!stockItem) {
-      alert(`Error: ${item.name} not found in stock`);
-      return;
-    }
-
+    if (!stockItem) return alert(`Error: ${item.name} not found in stock`);
     if (item.quantity > stockItem.quantity) {
-      alert(
-        `Out of Stock!\n\n${item.name} available: ${stockItem.quantity}\nYou entered: ${item.quantity}`
-      );
-      return;
+      return alert(`Out of Stock!\n${item.name} available: ${stockItem.quantity}`);
     }
   }
 
   try {
-    // ✅ Save Bill
     const billRes = await fetch(`${API}/create-bill`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customerName,
-        cart,
-        total,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ customerName, cart, total }),
     });
-
     const billData = await billRes.json();
+    if (!billData.success) return alert("Failed to save bill!");
 
-    if (!billData.success) {
-      alert("Failed to save bill!");
-      return;
-    }
-
-    alert("Bill Saved!");
     setBillNumber(billData.billNumber);
 
-    // ✅ Update Stock
     const stockRes = await fetch(`${API}/update-stock`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cart }),
     });
-
     const stockData = await stockRes.json();
-
     if (!stockData.success) {
-      alert("Failed to update stock!");
+      // ⚠️ Bill already saved but stock failed - flag for manual check
+      alert("Bill saved but stock update failed! Please check manually. Bill #" + billData.billNumber);
       return;
     }
 
-    alert("Stock updated successfully ✅");
-
-    // ✅ Refresh Stock
     const refreshRes = await fetch(`${API}/stock`);
     const updatedStock = await refreshRes.json();
-
     setStock(updatedStock);
-    
-    // ✅ Print
-    window.print();
 
+    // Print only after everything succeeds
+    window.print();
     window.onafterprint = () => {
       setCustomerName("");
       setCart([]);
     };
-    
+
   } catch (err) {
     console.error("ERROR:", err);
-    alert("Something went wrong!");
+    alert("Something went wrong! Please check if bill was saved before retrying.");
   }
 };
   
