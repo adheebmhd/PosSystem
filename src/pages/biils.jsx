@@ -148,14 +148,12 @@ useEffect(() => {
     
     // ✅ Print
     window.print();
+
+    window.onafterprint = () => {
+      setCustomerName("");
+      setCart([]);
+    };
     
-
-
-setTimeout(() => {
-  setCustomerName("");
-  setCart([]);
-}, 3000);
-
   } catch (err) {
     console.error("ERROR:", err);
     alert("Something went wrong!");
